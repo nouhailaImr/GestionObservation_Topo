@@ -113,7 +113,7 @@ namespace Sqrland_Calcul
                 this.textpath.Text = openfile.FileName;
             }
             string[] st = openfile.SafeFileName.Split('.');
-            //extension = Path.GetExtension(textpath.Text);
+            extension = Path.GetExtension(textpath.Text);
             if (st[1] == "txt")
             {
                 extension = "text";
