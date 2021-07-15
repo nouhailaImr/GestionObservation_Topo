@@ -34,15 +34,8 @@ namespace Sqrland_Calcul
                 case "text":
 
                     DataTable table = new DataTable();
-                    /*table.Columns.Add("Element");
-                    table.Columns.Add("Matricule");
-                    table.Columns.Add("X");
-                    table.Columns.Add("Y");
-                    table.Columns.Add("Z");
-                    table.Columns.Add("D");*/
-
+                    
                     string[] lines = File.ReadAllLines(textpath.Text);
-
                     int max =0;
 
                     foreach(string line in lines)
@@ -106,7 +99,7 @@ namespace Sqrland_Calcul
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openfile = new OpenFileDialog();
-            openfile.Filter = "XLS files (*.xls, *.xlt)|*.xls;*.xlt|XLSX files (*.xlsx, *.xlsm, *.xltx, *.xltm)|*.xlsx;*.xlsm;*.xltx;*.xltm|CSV files (*.csv, *.tsv)|*.csv;*.tsv|Text Files(*.txt)|*.txt;";
+            openfile.Filter = "XLS files (*.xls, *.xlt)|*.xls;*.xlt|XLSX files (*.xlsx, *.xlsm, *.xltx, *.xltm)|*.xlsx;*.xlsm;*.xltx;*.xltm|Text Files(*.txt)|*.txt;";
 
             if (openfile.ShowDialog() == DialogResult.OK)
             {
@@ -122,11 +115,7 @@ namespace Sqrland_Calcul
             {
                 extension = "excel";
             }
-            if (st[1] == "csv" || st[1] == "tsv")
-            {
-                extension = "csv";
-            }
-            label1.Text = extension;
+           
 
         }
 
