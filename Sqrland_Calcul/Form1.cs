@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExcelDataReader;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,28 +19,53 @@ namespace Sqrland_Calcul
         {
             InitializeComponent();
         }
-        DataTable table = new DataTable();
-        
+        DataTableCollection tableCollection;
+
         string extension;
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            dataGridView1.DataSource = table;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             switch (extension)
             {
-                case ".txt":
-                    table.Columns.Add("Element");
+                case "text":
+
+                    DataTable table = new DataTable();
+                    /*table.Columns.Add("Element");
                     table.Columns.Add("Matricule");
                     table.Columns.Add("X");
                     table.Columns.Add("Y");
                     table.Columns.Add("Z");
-                    table.Columns.Add("D");
+                    table.Columns.Add("D");*/
 
                     string[] lines = File.ReadAllLines(textpath.Text);
+
+                    int max =0;
+
+                    foreach(string line in lines)
+                    {
+                        string[] values = line.ToString().Split(' ');
+                        List<string> list2 = new List<string>();
+                        foreach (string str in values)
+                        {
+                            if (str != string.Empty)
+                            {
+                                list2.Add(str);
+                            }
+                        }
+                        if (list2.Count > max)
+                            max = list2.Count;
+
+                        
+                    }
+                        for(int i=1;i<=max;i++)
+                        {
+                            table.Columns.Add(i.ToString());
+                        }
+
 
                     foreach (string line in lines)
                     {
@@ -54,16 +80,23 @@ namespace Sqrland_Calcul
                         }
                         table.Rows.Add(list2.ToArray());
                     }
+                    dataGridView1.DataSource = table;
                     break;
 
                 case "excel":
-                    /*string name = "Items";
-                     string constr = "Provider = Microsoft.Jet.OLEDB.4.0; Data Source=" + textpath.Text + "; Extented Properties =\"Excel 8.0; HDR=Yes;\";";
-                     OleDbConnection con = new OleDbConnection(constr);
-                     OleDbDataAdapter sda = new OleDbDataAdapter("Select * From [Sheet1$]", con);
-                     DataTable data = new DataTable();
-                     sda.Fill(data);
-                     break;*/
+                    
+                    using (var stream = File.Open(textpath.Text, FileMode.Open, FileAccess.Read))
+                    {
+
+                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                        {
+                            DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                            {
+                                ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                            });
+                            dataGridView1.DataSource = result.Tables[0];
+                        }
+                    }
 
                     break;
             }
@@ -80,12 +113,12 @@ namespace Sqrland_Calcul
                 this.textpath.Text = openfile.FileName;
             }
             string[] st = openfile.SafeFileName.Split('.');
-            extension = Path.GetExtension(textpath.Text);
-            /*if (st[1] == "txt")
+            //extension = Path.GetExtension(textpath.Text);
+            if (st[1] == "txt")
             {
                 extension = "text";
             }
-            if (st[1] == "xls" || st[1] == "xlsx")
+            if (st[1] == "xls" || st[1] == "xlt" || st[1] == "xlsx" || st[1] == "xlsm" || st[1] == "xltx" || st[1] == "xltm")
             {
                 extension = "excel";
             }
@@ -93,7 +126,13 @@ namespace Sqrland_Calcul
             {
                 extension = "csv";
             }
-            label1.Text = extension;*/
+            label1.Text = extension;
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("drdrcrc");
         }
     }
 }
