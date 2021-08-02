@@ -12,93 +12,78 @@ namespace Sqrland_Calcul
     class mydb
     {
         public SQLiteConnection connection;
-        SQLiteCommandBuilder builder;
-        public mydb(int count, DataTable dtIn)
+        public mydb()
         {
             connection = new SQLiteConnection("Data Source= sqrLand.db");
+            connection.Open();
             if (!File.Exists("./sqrLand.db"))
             {
+                
                 SQLiteConnection.CreateFile("sqrLand.db");
-                connection.Open();
-                SQLiteCommand cmd = new SQLiteCommand("CREATE TABLE observation([Column 1] VARCHAR(100),[Column 2] VARCHAR(100), constraint pkObservation primary key ([Column 1],[Column 2]) )", connection);
+            }
+               
+                SQLiteCommand cmd = new SQLiteCommand(
+                    "CREATE TABLE IF NOT EXISTS  Observation (" +
+                        "\"id\"    INTEGER," +
+                        "\"Name\"   TEXT," +
+                        "\"Description\"   TEXT," +
+                        "\"Created_At\"  DATE," +
+                        "PRIMARY KEY(\"id\" AUTOINCREMENT)" +
+                    ");" +
+                    "CREATE TABLE IF NOT EXISTS  \"Observation_row\"(" +
+                        "\"id\"    INTEGER," +
+                        "\"Station\"   TEXT," +
+                        "\"Point_vise\"    TEXT," +
+                        "\"Ah1\"    DOUBLE," +
+                        "\"Ah2\"    DOUBLE," +
+                        "\"Distance\"  DOUBLE," +
+                        "\"Av\" double," +
+                        "\"hp\" double," +
+                        "\"hs\" double," +
+                        "\"Z\" double," +
+                        "\"id_observation\"    INTEGER NOT NULL," +
+                        "PRIMARY KEY(\"id\" AUTOINCREMENT)," +
+                        "FOREIGN KEY(\"id_observation\") REFERENCES \"Observation\"(\"id\")" +
+                    ");", connection);
 
                 cmd.ExecuteNonQuery();
-                for (int i = 3; i < count + 1; i++)
-                {
-                    addColumns("column " + i);
-                }
-
-                Fill(dtIn);
-            }
-            else
-            {
-                connection.Open();
-                SQLiteCommand commande = new SQLiteCommand("SELECT * FROM observation", connection);
-                SQLiteDataReader dr = commande.ExecuteReader();
-                DataTable dt = new DataTable("observation");
-                dt.Load(dr);
-                int dbTableCount = dt.Columns.Count;
-
-                while (count > dbTableCount)
-                {
-                    addColumns("column " + ++dbTableCount);
-                }
-
-                Fill(dtIn);
-            }
+                connection.Close();
+            //}
+            
+        }
+        public mydb(DataTable dtIn, int idObs)
+        {
+            connection = new SQLiteConnection("Data Source= sqrLand.db");
+            Fill(dtIn, idObs);
         }
 
-        private void addColumns(string name)
+        private void Fill(DataTable dt, int id)
         {
-            SQLiteCommand cmd = new SQLiteCommand("ALTER TABLE observation ADD column [" + name + "] VARCHAR(100)", connection);
-            cmd.ExecuteNonQuery();
-        }
-
-        private void Fill(DataTable dt)
-        {
-            SQLiteCommand com = new SQLiteCommand("SELECT * FROM observation", connection);
-            SQLiteDataReader dr = com.ExecuteReader();
-            DataTable datatb = new DataTable("ob");
-            datatb.Load(dr);
-
-
-            SQLiteDataAdapter da = new SQLiteDataAdapter(com);
-            builder = new SQLiteCommandBuilder(da);
-
-            DataTable dtfin = new DataTable();
-            int max = datatb.Columns.Count;
-            if (dt.Columns.Count > max)
-                max = dt.Columns.Count;
-            for (int i = 1; i < max + 1; i++)
+            connection.Open();
+            
+            for(int i = 0;i<dt.Rows.Count;i++)
             {
-                dtfin.Columns.Add("Column " + i);
-            }
-            for (int i = 0; i < datatb.Rows.Count ; i++)
-            {
-                List<string> list = new List<string>();
-                for (int j = 0; j < datatb.Columns.Count; j++)
+                string query = "INSERT INTO Observation_Row values (null,'";
+                var item = dt.Rows[i].ItemArray;
+                for(int j=0;j<item.Length;j++)
                 {
-                    list.Add(datatb.Rows[i][j].ToString());
+                    
+                    if (j == 0)
+                        query += item[j] + "','";
+                    else if (j == 1)
+                        query += item[j] + "',";
+                    else if (item[j].GetType().Equals(typeof(DBNull)))
+                        query += "null,";
+                    else
+                        query += item[j] + ",";
+                        
                 }
-                dtfin.Rows.Add(list.ToArray());
+                query += id+");";
+                SQLiteCommand com = new SQLiteCommand(query, connection);
+                com.ExecuteNonQuery();
             }
 
-           for (int i = 0; i < dt.Rows.Count; i++)
-           {
-                List<string> list = new List<string>();
-                for (int j = 0; j < dt.Columns.Count; j++)
-                {
-                    list.Add(dt.Rows[i][j].ToString());
-                }
-                dtfin.Rows.Add(list.ToArray());
-            }
-
-
-            try
-            {
-                da.Update(dtfin);
-            }
-            catch (Exception) { }
+            connection.Close();
         }
     }
 }

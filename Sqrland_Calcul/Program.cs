@@ -16,7 +16,7 @@ namespace Sqrland_Calcul
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FrmLoad());
            
         }
     }
