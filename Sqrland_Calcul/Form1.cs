@@ -114,23 +114,6 @@ namespace Sqrland_Calcul
                     dataGridView2.DataSource = table;
                     mydb databaseObject = new mydb(tableDB, int.Parse(id));
                     break;
-
-                    /*case "excel":
-
-                        using (var stream = File.Open(textpath.Text, FileMode.Open, FileAccess.Read))
-                        {
-
-                            using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
-                            {
-                                DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
-                                {
-                                    ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
-                                });
-                                dataGridView2.DataSource = result.Tables[0];
-                            }
-                        }
-
-                        break;*/
             }
         }
 
@@ -152,10 +135,6 @@ namespace Sqrland_Calcul
                 {
                     extension = "text";
                 }
-                /*if (st[1] == "xls" || st[1] == "xlt" || st[1] == "xlsx" || st[1] == "xlsm" || st[1] == "xltx" || st[1] == "xltm")
-                {
-                    extension = "excel";
-                }*/
             }
             catch (Exception) { }
 

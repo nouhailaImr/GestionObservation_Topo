@@ -66,7 +66,7 @@ namespace Sqrland_Calcul
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(598, 21);
+            this.button1.Location = new System.Drawing.Point(546, 21);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 36);
@@ -95,12 +95,12 @@ namespace Sqrland_Calcul
             // 
             // btnimport
             // 
-            this.btnimport.Location = new System.Drawing.Point(487, 21);
+            this.btnimport.Location = new System.Drawing.Point(477, 24);
             this.btnimport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnimport.Name = "btnimport";
-            this.btnimport.Size = new System.Drawing.Size(103, 36);
+            this.btnimport.Size = new System.Drawing.Size(38, 33);
             this.btnimport.TabIndex = 4;
-            this.btnimport.Text = "Import";
+            this.btnimport.Text = "...";
             this.btnimport.UseVisualStyleBackColor = true;
             this.btnimport.Click += new System.EventHandler(this.button2_Click);
             // 
