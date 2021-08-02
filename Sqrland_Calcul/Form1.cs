@@ -23,7 +23,7 @@ namespace Sqrland_Calcul
         {
             InitializeComponent();
             this.id = id;
-            
+
         }
         //Load --Uplaod to database--
         private void button1_Click(object sender, EventArgs e)
@@ -55,7 +55,7 @@ namespace Sqrland_Calcul
                     tableDB.Columns.Add("hs");
                     tableDB.Columns.Add("Z");
 
-                    
+
 
 
                     string[] lines = File.ReadAllLines(textpath.Text);
@@ -112,25 +112,25 @@ namespace Sqrland_Calcul
                     }
 
                     dataGridView2.DataSource = table;
-                    mydb databaseObject = new mydb(tableDB,int.Parse(id));
+                    mydb databaseObject = new mydb(tableDB, int.Parse(id));
                     break;
 
-                /*case "excel":
+                    /*case "excel":
 
-                    using (var stream = File.Open(textpath.Text, FileMode.Open, FileAccess.Read))
-                    {
-
-                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                        using (var stream = File.Open(textpath.Text, FileMode.Open, FileAccess.Read))
                         {
-                            DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
-                            {
-                                ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
-                            });
-                            dataGridView2.DataSource = result.Tables[0];
-                        }
-                    }
 
-                    break;*/
+                            using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                            {
+                                DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                                {
+                                    ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                                });
+                                dataGridView2.DataSource = result.Tables[0];
+                            }
+                        }
+
+                        break;*/
             }
         }
 
@@ -184,30 +184,19 @@ namespace Sqrland_Calcul
             if (dt.Rows.Count == 0)
                 testTableEmpty = false;
 
-
-            List<string> list2 = new List<string>();
-            for (int i = 0; i < dt.Rows.Count; i++)
+            string removedup = dataGridView2.Rows[0].Cells[0].Value.ToString();
+            for (int i = 1; i < dataGridView2.Rows.Count; i++)
             {
-                
-                    for (int j = 0; j < dt.Columns.Count;j++)
-                    {
-
-                        bool tst = true;
-                        var tt = dt.Rows[i][0];
-                        if (tt.ToString() == dt.Rows[i-1][0])
-                        {
-                            list2.Add(null);
-                            tst = false;
-                        }
-                        if (tst)
-                        {
-                            list2.Add(dt.Rows[i][j].ToString());
-                        }
+                if (dataGridView2.Rows[i].Cells[0].Value.ToString() == removedup)
+                {
+                    dataGridView2.Rows[i].Cells[0].Value = string.Empty;
                 }
-                    }
-
-            dataGridView2.DataSource = list2;
+                else
+                    removedup = dataGridView2.Rows[i].Cells[0].Value.ToString();
+            }
         }
+
+
     }
 }
 
