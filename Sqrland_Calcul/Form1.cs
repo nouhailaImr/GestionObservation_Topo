@@ -45,74 +45,35 @@ namespace Sqrland_Calcul
                     table.Columns.Add("hs");
                     table.Columns.Add("Z");
 
-                    tableDB.Columns.Add("station");
-                    tableDB.Columns.Add("point vise");
-                    tableDB.Columns.Add("Ah1");
-                    tableDB.Columns.Add("Ah2");
-                    tableDB.Columns.Add("distance");
-                    tableDB.Columns.Add("Av");
-                    tableDB.Columns.Add("hp");
-                    tableDB.Columns.Add("hs");
-                    tableDB.Columns.Add("Z");
-
-
-
-
                     string[] lines = File.ReadAllLines(textpath.Text);
 
                     foreach (string line in lines)
                     {
                         string[] values = line.ToString().Split(' ');
                         List<string> list2 = new List<string>();
-                        foreach (string str in values)
-                        {
-                            if (str != string.Empty)
-                            {
-                                list2.Add(str);
-                            }
-                        }
-                    }
-
-                    foreach (string line in lines)
-                    {
-                        string[] values = line.ToString().Split(' ');
-                        List<string> list2 = new List<string>();
-                        List<string> list3 = new List<string>();
                         int cp = 0;
                         for (int i = 0; i < values.Length; i++)
                         {
                             if (values[i] != string.Empty)
                             {
                                 cp++;
-                                bool tst = true;
-                                for (int j = 0; j < table.Rows.Count; j++)
-                                {
-                                    var tt = table.Rows[j][0];
-                                    if (tt.ToString() == values[0])
-                                    {
-                                        list2.Add(null);
-                                        tst = false;
-                                    }
-                                }
-                                if (cp == 4 && testTableEmpty == false)
+                                if (cp == 4 && !testTableEmpty)
                                 {
                                     list2.Add(null);
-                                    list3.Add(null);
                                 }
-                                if (tst)
+                                else if (cp == 4 && testTableEmpty)
                                 {
-                                    list2.Add(values[i]);
+                                    list2.Add("0");
                                 }
-                                list3.Add(values[i]);
+                                list2.Add(values[i]);
                             }
                         }
                         table.Rows.Add(list2.ToArray());
-                        tableDB.Rows.Add(list3.ToArray());
 
                     }
-
-                    dataGridView2.DataSource = table;
-                    mydb databaseObject = new mydb(tableDB, int.Parse(id));
+                    mydb databaseObject = new mydb(table, int.Parse(id));
+                    FillDataGridView();
+                    testTableEmpty = true;
                     break;
             }
         }
@@ -137,13 +98,13 @@ namespace Sqrland_Calcul
                 }
             }
             catch (Exception) { }
-
-
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             //MessageBox.Show("drdrcrc");
+
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -153,9 +114,17 @@ namespace Sqrland_Calcul
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            FillDataGridView();
+            //this.dataGridView2.Rows[1].DefaultCellStyle.BackColor = Color.Cornsilk;
+
+
+        }
+
+        private void FillDataGridView()
+        {
             SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
             cn.Open();
-            SQLiteCommand cmd = new SQLiteCommand("select station,Point_vise,ah1,ah2,distance,av,hp,hs,z from observation_row", cn);
+            SQLiteCommand cmd = new SQLiteCommand("select station,Point_vise,ah1,ah2,distance,av,hp,hs,z from observation_row where id_observation like " + id + " order by Station", cn);
             SQLiteDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable("obs");
             dt.Load(dr);
@@ -163,19 +132,51 @@ namespace Sqrland_Calcul
             if (dt.Rows.Count == 0)
                 testTableEmpty = false;
 
-            string removedup = dataGridView2.Rows[0].Cells[0].Value.ToString();
-            for (int i = 1; i < dataGridView2.Rows.Count; i++)
+            if (dataGridView2.Rows.Count > 0)
             {
-                if (dataGridView2.Rows[i].Cells[0].Value.ToString() == removedup)
+                string removedup = dataGridView2.Rows[0].Cells[0].Value.ToString();
+                for (int i = 1; i < dataGridView2.Rows.Count; i++)
                 {
-                    dataGridView2.Rows[i].Cells[0].Value = string.Empty;
+                    if (dataGridView2.Rows[i].Cells[0].Value.ToString() == removedup)
+                    {
+                        dataGridView2.Rows[i].Cells[0].Value = string.Empty;
+                    }
+                    else
+                        removedup = dataGridView2.Rows[i].Cells[0].Value.ToString();
                 }
-                else
-                    removedup = dataGridView2.Rows[i].Cells[0].Value.ToString();
             }
+
+
         }
 
+        private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            for (int j = 0; j < dataGridView2.Rows.Count; j++)
+            {
+                string duplicated = dataGridView2.Rows[j].Cells[0].Value.ToString();
+                for (int i = 0;  i < dataGridView2.Rows.Count; i++)
+                {
+                    if( e.ColumnIndex==1 & e.Value != null)
+                    {
+                        string val = Convert.ToString(e.Value);
+                        if (val == duplicated)
+                        {
+                            e.CellStyle.ForeColor = Color.White;
+                            e.CellStyle.BackColor = Color.DeepPink;
+                        }
+                    }
+                    
+                }
+            }
+                
 
+                
+
+            
+
+
+
+        }
     }
 }
 

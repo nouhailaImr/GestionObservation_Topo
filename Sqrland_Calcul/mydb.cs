@@ -1,7 +1,4 @@
-﻿using Amazon.Athena.Model;
-using Microsoft.TeamFoundation.Build.WebApi;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
