@@ -67,8 +67,8 @@ namespace Sqrland_Calcul
                                 }
                                 else if (cp == 4 && testTableEmpty)
                                 {
-                                    
-                                    
+
+
                                     list2.Add("1");
                                 }
                                 list2.Add(values[i]);
@@ -85,7 +85,7 @@ namespace Sqrland_Calcul
         }
         private void calc_angle()
         {
-            
+
         }
 
 
@@ -113,12 +113,12 @@ namespace Sqrland_Calcul
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-           
+
             /*scb = new SQLiteCommandBuilder(adpt);
             adpt.Update(dt);
             MessageBox.Show("Update with success");*/
 
-            foreach(DataGridViewRow row in dataGridView2.Rows)
+            foreach (DataGridViewRow row in dataGridView2.Rows)
             {
                 SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
                 cn.Open();
@@ -127,7 +127,7 @@ namespace Sqrland_Calcul
                 string tsths = row.Cells[8].Value.ToString();
                 string tstZ = row.Cells[9].Value.ToString();
 
-                if (tsthp!=string.Empty)
+                if (tsthp != string.Empty)
                 {
                     SQLiteCommand cmd = new SQLiteCommand("update observation_row set hp = " + tsthp + " where id = " + row.Cells[0].Value, cn);
                     cmd.ExecuteNonQuery();
@@ -142,7 +142,7 @@ namespace Sqrland_Calcul
                     SQLiteCommand cmd = new SQLiteCommand("update observation_row set Z = " + tstZ + " where id = " + row.Cells[0].Value, cn);
                     cmd.ExecuteNonQuery();
                 }
-                
+
             }
             MessageBox.Show("update with success");
 
@@ -156,14 +156,11 @@ namespace Sqrland_Calcul
         private void Form1_Load(object sender, EventArgs e)
         {
             FillDataGridView();
-            //this.dataGridView2.Rows[1].DefaultCellStyle.BackColor = Color.Cornsilk;
-
-
         }
 
         private void FillDataGridView()
         {
-           SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
+            SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
             cn.Open();
             /*SQLiteCommand cmd = new SQLiteCommand("select station,Point_vise,ah1,ah2,distance,av,hp,hs,z from observation_row where id_observation like " + id + " order by Station", cn);
             SQLiteDataReader dr = cmd.ExecuteReader();
@@ -187,7 +184,7 @@ namespace Sqrland_Calcul
                     }
                     else
                         removedup = dataGridView2.Rows[i].Cells[1].Value.ToString();
-                    
+
 
                 }
             }
@@ -202,37 +199,63 @@ namespace Sqrland_Calcul
             for (int j = 0; j < dataGridView2.Rows.Count; j++)
             {
                 string duplicated = dataGridView2.Rows[j].Cells[1].Value.ToString();
-                for (int i = 0;  i < dataGridView2.Rows.Count; i++)
+                for (int i = 0; i < dataGridView2.Rows.Count; i++)
                 {
-                    if (e.ColumnIndex == 2  && e.Value != null)
+                    if (e.ColumnIndex == 2 && e.Value != null)
                     {
                         string val = Convert.ToString(e.Value);
                         if (val == duplicated)
                         {
                             e.CellStyle.ForeColor = Color.White;
-                            e.CellStyle.BackColor = Color.FromArgb(27,91,104);
+                            e.CellStyle.BackColor = Color.FromArgb(27, 91, 104);
                         }
                     }
-                    
+
                 }
             }
-                
-
-                
-
-            
-
-
-
         }
 
-        private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+
+        private void button3_Click(object sender, EventArgs e)
         {
-            /*foreach (DataGridViewRow row in dataGridView2.Rows)
+
+            string duplicated = dataGridView2.Rows[0].Cells[1].Value.ToString();
+            string duplicated2 = dataGridView2.Rows[0].Cells[2].Value.ToString();
+            int x = 0;
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
             {
-                row.Cells["Z"].Value = Convert.ToDouble(row.Cells["aV"].Value) + Convert.ToDouble(row.Cells["Ah1"].Value);
-            }*/
+                if (dataGridView2.Rows[i].Cells[1].Value.ToString() == duplicated.ToString() || dataGridView2.Rows[i].Cells[1].Value.ToString() == string.Empty)
+                {
+
+                }
+                else
+                {
+                    for (int j = x; j < i; j++)
+                    {
+                        for (int y = x; y < i; y++)
+                        {
+                            if (dataGridView2.Rows[j].Cells[2].Value.ToString() == dataGridView2.Rows[y].Cells[2].Value.ToString() && j != y)
+                            {
+                                double distance = Convert.ToDouble(dataGridView2.Rows[j].Cells[5].Value) - Convert.ToDouble(dataGridView2.Rows[y].Cells[5].Value);
+                                double angle = Convert.ToDouble(dataGridView2.Rows[j].Cells[6].Value) - Convert.ToDouble(dataGridView2.Rows[y].Cells[6].Value);
+                                if (distance <= 10 && angle <= 0.001)
+                                {
+                                    double moyenne = (Convert.ToDouble(dataGridView2.Rows[j].Cells[3].Value) + Convert.ToDouble(dataGridView2.Rows[y].Cells[3].Value))/2;
+                                  
+                                    dataGridView2.Rows[j].Cells[4].Value = moyenne;
+                                }
+
+                            }
+                        }
+                        
+                    }
+                    x = i;
+                }
+            }
+
         }
     }
 }
+
+
 
