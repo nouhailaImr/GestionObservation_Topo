@@ -62,6 +62,7 @@ namespace Sqrland_Calcul
                                 //dataGridView2.Rows[z].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[z].Cells[4].Value) + 400;
                             }
 
+
                         }
                         else if(cp > 2)
                         {
