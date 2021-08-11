@@ -64,7 +64,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calcul_Ah2.cs" />
+    <Compile Include="Calc_Angle.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -94,7 +94,7 @@ namespace Sqrland_Calcul
             this.button1.TabIndex = 1;
             this.button1.Text = "Load";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.btn_load);
             // 
             // label1
             // 
@@ -123,7 +123,7 @@ namespace Sqrland_Calcul
             this.btnimport.TabIndex = 4;
             this.btnimport.Text = "...";
             this.btnimport.UseVisualStyleBackColor = true;
-            this.btnimport.Click += new System.EventHandler(this.button2_Click);
+            this.btnimport.Click += new System.EventHandler(this.btn_import);
             // 
             // panel1
             // 
@@ -158,7 +158,6 @@ namespace Sqrland_Calcul
             this.button5.TabIndex = 3;
             this.button5.Text = "button5";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -177,9 +176,9 @@ namespace Sqrland_Calcul
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(138, 42);
             this.button3.TabIndex = 1;
-            this.button3.Text = "button3";
+            this.button3.Text = "Calculer ";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.btn_angle);
             // 
             // button2
             // 
@@ -188,9 +187,9 @@ namespace Sqrland_Calcul
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 42);
             this.button2.TabIndex = 0;
-            this.button2.Text = "UPDATE";
+            this.button2.Text = "Update";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button2.Click += new System.EventHandler(this.btn_update);
             // 
             // panel2
             // 

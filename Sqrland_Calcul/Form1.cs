@@ -16,13 +16,10 @@ namespace Sqrland_Calcul
 {
     public partial class Form1 : Form
     {
-
-        SQLiteCommandBuilder scb;
         SQLiteDataAdapter adpt;
         DataTable dt;
         string id;
         string extension;
-        bool testTableEmpty = true;
         public Form1(string id)
         {
             InitializeComponent();
@@ -30,15 +27,13 @@ namespace Sqrland_Calcul
 
         }
         //Load --Uplaod to database--
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_load(object sender, EventArgs e)
         {
             switch (extension)
             {
                 case "text":
-
                     DataTable table = new DataTable();
                     DataTable tableDB = new DataTable();
-
                     table.Columns.Add("station");
                     table.Columns.Add("point vise");
                     table.Columns.Add("Ah1");
@@ -61,15 +56,9 @@ namespace Sqrland_Calcul
                             if (values[i] != string.Empty)
                             {
                                 cp++;
-                                if (cp == 4 && !testTableEmpty)
+                                if (cp == 4)
                                 {
                                     list2.Add(null);
-                                }
-                                else if (cp == 4 && testTableEmpty)
-                                {
-
-
-                                    list2.Add("1");
                                 }
                                 list2.Add(values[i]);
                             }
@@ -79,18 +68,12 @@ namespace Sqrland_Calcul
                     }
                     mydb databaseObject = new mydb(table, int.Parse(id));
                     FillDataGridView();
-                    testTableEmpty = true;
                     break;
             }
         }
-        private void calc_angle()
-        {
-
-        }
-
 
         //Importation
-        private void button2_Click(object sender, EventArgs e)
+        private void btn_import(object sender, EventArgs e)
         {
             OpenFileDialog openfile = new OpenFileDialog();
             openfile.Filter = "Text Files(*.txt)|*.txt;";
@@ -111,13 +94,8 @@ namespace Sqrland_Calcul
             catch (Exception) { }
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void btn_update(object sender, EventArgs e)
         {
-
-            /*scb = new SQLiteCommandBuilder(adpt);
-            adpt.Update(dt);
-            MessageBox.Show("Update with success");*/
-
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
                 SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
@@ -142,16 +120,10 @@ namespace Sqrland_Calcul
                     SQLiteCommand cmd = new SQLiteCommand("update observation_row set Z = " + tstZ + " where id = " + row.Cells[0].Value, cn);
                     cmd.ExecuteNonQuery();
                 }
-
             }
             MessageBox.Show("update with success");
-
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -170,9 +142,7 @@ namespace Sqrland_Calcul
             dt = new DataTable();
             adpt.Fill(dt);
             dataGridView2.DataSource = dt;
-            if (dt.Rows.Count == 0)
-                testTableEmpty = false;
-
+            
             if (dataGridView2.Rows.Count > 0)
             {
                 string removedup = dataGridView2.Rows[0].Cells[1].Value.ToString();
@@ -184,8 +154,6 @@ namespace Sqrland_Calcul
                     }
                     else
                         removedup = dataGridView2.Rows[i].Cells[1].Value.ToString();
-
-
                 }
             }
             dataGridView2.Columns[0].Visible = false;
@@ -215,45 +183,12 @@ namespace Sqrland_Calcul
             }
         }
 
-
-        private void button3_Click(object sender, EventArgs e)
+        private void btn_angle(object sender, EventArgs e)
         {
-
-            string duplicated = dataGridView2.Rows[0].Cells[1].Value.ToString();
-            string duplicated2 = dataGridView2.Rows[0].Cells[2].Value.ToString();
-            int x = 0;
-            for (int i = 0; i < dataGridView2.Rows.Count; i++)
-            {
-                if (dataGridView2.Rows[i].Cells[1].Value.ToString() == duplicated.ToString() || dataGridView2.Rows[i].Cells[1].Value.ToString() == string.Empty)
-                {
-
-                }
-                else
-                {
-                    for (int j = x; j < i; j++)
-                    {
-                        for (int y = x; y < i; y++)
-                        {
-                            if (dataGridView2.Rows[j].Cells[2].Value.ToString() == dataGridView2.Rows[y].Cells[2].Value.ToString() && j != y)
-                            {
-                                double distance = Convert.ToDouble(dataGridView2.Rows[j].Cells[5].Value) - Convert.ToDouble(dataGridView2.Rows[y].Cells[5].Value);
-                                double angle = Convert.ToDouble(dataGridView2.Rows[j].Cells[6].Value) - Convert.ToDouble(dataGridView2.Rows[y].Cells[6].Value);
-                                if (distance <= 10 && angle <= 0.001)
-                                {
-                                    double moyenne = (Convert.ToDouble(dataGridView2.Rows[j].Cells[3].Value) + Convert.ToDouble(dataGridView2.Rows[y].Cells[3].Value))/2;
-                                  
-                                    dataGridView2.Rows[j].Cells[4].Value = moyenne;
-                                }
-
-                            }
-                        }
-                        
-                    }
-                    x = i;
-                }
-            }
-
+            Calc_Angle.calc_angle(dataGridView2);
         }
+
+        
     }
 }
 
