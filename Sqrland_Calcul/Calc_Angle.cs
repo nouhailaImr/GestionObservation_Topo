@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +85,19 @@ namespace Sqrland_Calcul
                             {
 
                                 dataGridView2.Rows[f].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[f].Cells[3].Value) - lista_v[w];
+                                if (Convert.ToDouble(dataGridView2.Rows[f].Cells[4].Value) < 0)
+                                {
+                                    dataGridView2.Rows[f].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[f].Cells[4].Value) + 400;
+                                }
+                                else if (Convert.ToDouble(dataGridView2.Rows[f].Cells[4].Value) > 400)
+                                {
+                                    //dataGridView2.Rows[z].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[z].Cells[4].Value) + 400;
+                                }
+                                SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
+                                cn.Open();
+                                SQLiteCommand cmd = new SQLiteCommand("update observation_row set Ah2 = " + dataGridView2.Rows[f].Cells[4].Value + " where id = " + dataGridView2.Rows[f].Cells[0].Value, cn);
+                                cmd.ExecuteNonQuery();
+                                cn.Close();
                             }
 
                         }

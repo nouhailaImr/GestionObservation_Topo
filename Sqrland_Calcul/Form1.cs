@@ -138,7 +138,7 @@ namespace Sqrland_Calcul
             SQLiteDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable("obs");
             dt.Load(dr);*/
-            adpt = new SQLiteDataAdapter("select * from observation_row where id_observation like " + id + " order by Station", cn);
+            adpt = new SQLiteDataAdapter("select * from observation_row where id_observation like " + id + " order by Station, Ah2", cn);
             dt = new DataTable();
             adpt.Fill(dt);
             dataGridView2.DataSource = dt;
