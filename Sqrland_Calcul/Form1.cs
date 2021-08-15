@@ -138,7 +138,7 @@ namespace Sqrland_Calcul
             SQLiteDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable("obs");
             dt.Load(dr);*/
-            adpt = new SQLiteDataAdapter("select * from observation_row where id_observation like " + id + " order by Station, Ah2", cn);
+            adpt = new SQLiteDataAdapter("select * from observation_row where id_observation = " + id + " order by Station, Ah2", cn);
             dt = new DataTable();
             adpt.Fill(dt);
             dataGridView2.DataSource = dt;
@@ -186,6 +186,7 @@ namespace Sqrland_Calcul
         private void btn_angle(object sender, EventArgs e)
         {
             Calc_Angle.calc_angle(dataGridView2);
+            FillDataGridView();
         }
 
         

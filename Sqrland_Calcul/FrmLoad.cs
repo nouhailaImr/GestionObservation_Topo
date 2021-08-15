@@ -65,7 +65,8 @@ namespace Sqrland_Calcul
                     connection.Open();
                     SQLiteCommand cmd = new SQLiteCommand("delete from observation where id="+id, connection);
                     cmd.ExecuteNonQuery();
-                    
+                    cmd = new SQLiteCommand("delete from observation_row where id_observation =" + id, connection);
+                    cmd.ExecuteNonQuery();
                     connection.Close();
                     refresh();
                 }

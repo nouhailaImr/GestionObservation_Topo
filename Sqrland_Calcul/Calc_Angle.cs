@@ -29,6 +29,8 @@ namespace Sqrland_Calcul
                     int cp = 0;
                     List<double> lista_d = new List<double>();
                     List<double> lista_v = new List<double>();
+                    List<string> lista_v_double = new List<string>();
+                    List<int> lista_doublant = new List<int>();
                     for (int j = x; j < i; j++)
                     {
                         for (int y = x; y < i; y++)
@@ -44,7 +46,34 @@ namespace Sqrland_Calcul
                                     //moyenne = (Convert.ToDouble(dataGridView2.Rows[j].Cells[3].Value) + Convert.ToDouble(dataGridView2.Rows[y].Cells[3].Value)) / 2;
                                     lista_d.Add(distance);
                                     lista_v.Add(variable);
+                                    
                                 }
+                                if (lista_v_double.Count == 0)
+                                {
+                                    lista_v_double.Add(dataGridView2.Rows[j].Cells[2].Value.ToString());
+                                }
+                                else
+                                {
+                                    string tt= null;
+                                    foreach (string item in lista_v_double)
+                                    {
+                                        if (item == dataGridView2.Rows[j].Cells[2].Value.ToString())
+                                        {
+                                            //MessageBox.Show(j.ToString());
+                                            lista_doublant.Add(j);
+                                        }
+                                        else
+                                        {
+                                            tt = dataGridView2.Rows[j].Cells[2].Value.ToString();
+                                        }
+                                    }
+                                    if (tt != null)
+                                    {
+                                        lista_v_double.Add(tt);
+                                    }
+                                }
+                                
+                                    
                             }
                         }
                     }
@@ -62,14 +91,18 @@ namespace Sqrland_Calcul
                             {
                                 //dataGridView2.Rows[z].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[z].Cells[4].Value) + 400;
                             }
-
+                            SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
+                            cn.Open();
+                            SQLiteCommand cmd = new SQLiteCommand("update observation_row set Ah2 = " + dataGridView2.Rows[z].Cells[4].Value + " where id = " + dataGridView2.Rows[z].Cells[0].Value, cn);
+                            cmd.ExecuteNonQuery();
+                            cn.Close();
 
                         }
                         else if(cp > 2)
                         {
                             int w = 0;
                             double tst = 0;
-                            for(int s = 0; i < lista_d.Count; i++)
+                           for(int s = 0; i < lista_d.Count; i++)
                             {
                                 if (s == 0)
                                     tst = lista_d[s];
@@ -78,7 +111,6 @@ namespace Sqrland_Calcul
                                     tst = lista_d[s];
                                     w = s;
                                 }
-                             
                             }
                             w++;
                             for(int f=x; f < i; f++)
@@ -99,13 +131,21 @@ namespace Sqrland_Calcul
                                 cmd.ExecuteNonQuery();
                                 cn.Close();
                             }
-
                         }
+                        
+
                     }
-                        x = i;
+
+                    foreach (int o in lista_doublant){
+                        SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
+                        cn.Open();
+                        SQLiteCommand cmd = new SQLiteCommand("delete from observation_row where id = " + dataGridView2.Rows[o].Cells[0].Value, cn);
+                        cmd.ExecuteNonQuery();
+                        cn.Close();
+                    }
+                    x = i;
                 }
             }
-
         }
     }
 }
