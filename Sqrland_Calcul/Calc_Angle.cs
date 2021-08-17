@@ -72,8 +72,6 @@ namespace Sqrland_Calcul
                                         lista_v_double.Add(tt);
                                     }
                                 }
-                                
-                                    
                             }
                         }
                     }
@@ -87,10 +85,7 @@ namespace Sqrland_Calcul
                             {
                                 dataGridView2.Rows[z].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[z].Cells[4].Value) + 400 ;
                             }
-                            else if (Convert.ToDouble(dataGridView2.Rows[z].Cells[4].Value) > 400)
-                            {
-                                //dataGridView2.Rows[z].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[z].Cells[4].Value) + 400;
-                            }
+                            
                             SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
                             cn.Open();
                             SQLiteCommand cmd = new SQLiteCommand("update observation_row set Ah2 = " + dataGridView2.Rows[z].Cells[4].Value + " where id = " + dataGridView2.Rows[z].Cells[0].Value, cn);
@@ -132,6 +127,20 @@ namespace Sqrland_Calcul
                                 cn.Close();
                             }
                         }
+                        /*else if (cp < 2)
+                        {
+                            dataGridView2.Rows[z].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[z].Cells[3].Value) - Convert.ToDouble(dataGridView2.Rows[1].Cells[3].Value);
+                            if (Convert.ToDouble(dataGridView2.Rows[z].Cells[4].Value) < 0)
+                            {
+                                dataGridView2.Rows[z].Cells[4].Value = Convert.ToDouble(dataGridView2.Rows[z].Cells[4].Value) + 400;
+                            }
+
+                            SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
+                            cn.Open();
+                            SQLiteCommand cmd = new SQLiteCommand("update observation_row set Ah2 = " + dataGridView2.Rows[z].Cells[4].Value + " where id = " + dataGridView2.Rows[z].Cells[0].Value, cn);
+                            cmd.ExecuteNonQuery();
+                            cn.Close();
+                        }*/
                         
 
                     }

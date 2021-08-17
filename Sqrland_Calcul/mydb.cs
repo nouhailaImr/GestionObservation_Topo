@@ -29,6 +29,7 @@ namespace Sqrland_Calcul
                     ");" +
                     "CREATE TABLE IF NOT EXISTS  \"Observation_row\"(" +
                         "\"id\"    INTEGER," +
+                        "\"fixe\"    BIT," +
                         "\"Station\"   TEXT," +
                         "\"Point_vise\"    TEXT," +
                         "\"Ah1\"    DOUBLE," +
@@ -37,6 +38,8 @@ namespace Sqrland_Calcul
                         "\"Av\" double," +
                         "\"hp\" double," +
                         "\"hs\" double," +
+                        "\"X\" double," +
+                        "\"Y\" double," +
                         "\"Z\" double," +
                         "\"id_observation\"    INTEGER NOT NULL," +
                         "PRIMARY KEY(\"id\" AUTOINCREMENT)," +
@@ -60,12 +63,12 @@ namespace Sqrland_Calcul
             
             for(int i = 0;i<dt.Rows.Count;i++)
             {
-                string query = "INSERT INTO Observation_Row values (null,'";
+                string query = "INSERT INTO Observation_Row values (null,0,'";
                 var item = dt.Rows[i].ItemArray;
                 for(int j=0;j<item.Length;j++)
                 {
                     
-                    if (j == 0)
+                    if (j == 0 )
                         query += item[j] + "','";
                     else if (j == 1)
                         query += item[j] + "',";

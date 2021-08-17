@@ -42,10 +42,12 @@ namespace Sqrland_Calcul
                     table.Columns.Add("Av");
                     table.Columns.Add("hp");
                     table.Columns.Add("hs");
+                    table.Columns.Add("X");
+                    table.Columns.Add("Y");
                     table.Columns.Add("Z");
 
                     string[] lines = File.ReadAllLines(textpath.Text);
-
+                    List<string> liststa = new List<string>();
                     foreach (string line in lines)
                     {
                         string[] values = line.ToString().Split(' ');
@@ -61,11 +63,19 @@ namespace Sqrland_Calcul
                                     list2.Add(null);
                                 }
                                 list2.Add(values[i]);
+
                             }
                         }
+                       string station = list2[0];
+                        if (!liststa.Contains(station) && station is string)
+                        {                            
+                            table.Rows.Add(new string[] { station, station, null, null, null, null });
+                            liststa.Add(station);
+                        }
                         table.Rows.Add(list2.ToArray());
-
                     }
+
+                        
                     mydb databaseObject = new mydb(table, int.Parse(id));
                     FillDataGridView();
                     break;
@@ -104,6 +114,7 @@ namespace Sqrland_Calcul
                 string tsthp = row.Cells[7].Value.ToString();
                 string tsths = row.Cells[8].Value.ToString();
                 string tstZ = row.Cells[9].Value.ToString();
+               
 
                 if (tsthp != string.Empty)
                 {
@@ -132,47 +143,51 @@ namespace Sqrland_Calcul
 
         private void FillDataGridView()
         {
-            SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
-            cn.Open();
-            /*SQLiteCommand cmd = new SQLiteCommand("select station,Point_vise,ah1,ah2,distance,av,hp,hs,z from observation_row where id_observation like " + id + " order by Station", cn);
-            SQLiteDataReader dr = cmd.ExecuteReader();
-            DataTable dt = new DataTable("obs");
-            dt.Load(dr);*/
-            adpt = new SQLiteDataAdapter("select * from observation_row where id_observation = " + id + " order by Station, Ah2", cn);
-            dt = new DataTable();
-            adpt.Fill(dt);
-            dataGridView2.DataSource = dt;
+            try { 
+                SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
+                cn.Open();
+                adpt = new SQLiteDataAdapter("select * from observation_row where id_observation = " + id + " order by Station, Ah2", cn);
+                dt = new DataTable();
+                adpt.Fill(dt);
+
+                dataGridView2.DataSource = dt;
             
-            if (dataGridView2.Rows.Count > 0)
-            {
-                string removedup = dataGridView2.Rows[0].Cells[1].Value.ToString();
-                for (int i = 1; i < dataGridView2.Rows.Count; i++)
+                if (dataGridView2.Rows.Count > 0)
                 {
-                    if (dataGridView2.Rows[i].Cells[1].Value.ToString() == removedup)
+                    string removedup = dataGridView2.Rows[0].Cells[2].Value.ToString();
+                    for (int i = 1; i < dataGridView2.Rows.Count; i++)
                     {
-                        dataGridView2.Rows[i].Cells[1].Value = string.Empty;
+                        if (dataGridView2.Rows[i].Cells[2].Value.ToString() == removedup)
+                        {
+                            dataGridView2.Rows[i].Cells[2].Value = string.Empty;
+                        }
+                        else
+                        {
+                                removedup = dataGridView2.Rows[i].Cells[2].Value.ToString();
+                        }
+                        
                     }
-                    else
-                        removedup = dataGridView2.Rows[i].Cells[1].Value.ToString();
                 }
+                
+
+                dataGridView2.Columns[0].Visible = false;
+                dataGridView2.Columns[1].Width = 35;
+                dataGridView2.Columns[13].Visible = false;
             }
-            dataGridView2.Columns[0].Visible = false;
-            dataGridView2.Columns[10].Visible = false;
-
-
+            catch (Exception) { }
         }
 
         private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             for (int j = 0; j < dataGridView2.Rows.Count; j++)
             {
-                string duplicated = dataGridView2.Rows[j].Cells[1].Value.ToString();
+                string duplicated = dataGridView2.Rows[j].Cells[2].Value.ToString();
                 for (int i = 0; i < dataGridView2.Rows.Count; i++)
                 {
-                    if (e.ColumnIndex == 2 && e.Value != null)
+                    if (e.ColumnIndex == 3 && e.Value != null)
                     {
                         string val = Convert.ToString(e.Value);
-                        if (val == duplicated)
+                        if (val == duplicated && val != null)
                         {
                             e.CellStyle.ForeColor = Color.White;
                             e.CellStyle.BackColor = Color.FromArgb(27, 91, 104);
@@ -189,7 +204,40 @@ namespace Sqrland_Calcul
             FillDataGridView();
         }
 
-        
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //MessageBox.Show(.ToString());
+            SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
+            cn.Open();
+            if (!(bool)dataGridView2.Rows[e.RowIndex].Cells[1].Value)
+            {
+                SQLiteCommand cmd = new SQLiteCommand("update observation_row set fixe = 1 where id = " + dataGridView2.Rows[e.RowIndex].Cells[0].Value, cn);
+                cmd.ExecuteNonQuery();
+            }
+            else
+            {
+                SQLiteCommand cmd = new SQLiteCommand("update observation_row set fixe = 0 where id = " + dataGridView2.Rows[e.RowIndex].Cells[0].Value, cn);
+                cmd.ExecuteNonQuery();
+            }
+            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+            {
+                if (!dataGridView2.Rows[i].Cells[2].Value.ToString().Equals(""))
+                {
+                    MessageBox.Show("dkhel");
+                    dataGridView2.Rows.Insert(i);
+                }
+                else
+                {
+                    MessageBox.Show("dkhel0");
+                }
+
+            }
+        }
     }
 }
 
