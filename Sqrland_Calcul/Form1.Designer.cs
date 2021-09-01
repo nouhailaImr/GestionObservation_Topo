@@ -85,6 +85,7 @@ namespace Sqrland_Calcul
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView2_CellFormatting);
+            this.dataGridView2.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView2_CellPainting);
             // 
             // button1
             // 
@@ -93,7 +94,7 @@ namespace Sqrland_Calcul
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 33);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Load";
+            this.button1.Text = "Importer";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btn_load);
             // 
@@ -136,6 +137,7 @@ namespace Sqrland_Calcul
             this.panel1.Padding = new System.Windows.Forms.Padding(20);
             this.panel1.Size = new System.Drawing.Size(1100, 643);
             this.panel1.TabIndex = 5;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // panel3
             // 
@@ -153,9 +155,9 @@ namespace Sqrland_Calcul
             // button5
             // 
             this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.Location = new System.Drawing.Point(20, 126);
+            this.button5.Location = new System.Drawing.Point(20, 150);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(138, 42);
+            this.button5.Size = new System.Drawing.Size(138, 50);
             this.button5.TabIndex = 3;
             this.button5.Text = "button5";
             this.button5.UseVisualStyleBackColor = true;
@@ -165,9 +167,9 @@ namespace Sqrland_Calcul
             this.button4.Dock = System.Windows.Forms.DockStyle.Top;
             this.button4.Location = new System.Drawing.Point(20, 84);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(138, 42);
+            this.button4.Size = new System.Drawing.Size(138, 66);
             this.button4.TabIndex = 2;
-            this.button4.Text = "button4";
+            this.button4.Text = "cheminement ";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -178,7 +180,7 @@ namespace Sqrland_Calcul
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(138, 42);
             this.button3.TabIndex = 1;
-            this.button3.Text = "Calculer ";
+            this.button3.Text = "Retour 0";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.btn_angle);
             // 
@@ -189,7 +191,7 @@ namespace Sqrland_Calcul
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 42);
             this.button2.TabIndex = 0;
-            this.button2.Text = "Update";
+            this.button2.Text = "Modifier";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.btn_update);
             // 

@@ -20,6 +20,7 @@ namespace Sqrland_Calcul
         DataTable dt;
         string id;
         string extension;
+        string filename;
         public Form1(string id)
         {
             InitializeComponent();
@@ -48,13 +49,18 @@ namespace Sqrland_Calcul
 
                     string[] lines = File.ReadAllLines(textpath.Text);
                     List<string> liststa = new List<string>();
+                    foreach(DataGridViewRow row in dataGridView2.Rows)
+                    {
+                        if (row.Cells[2].Value.ToString() != string.Empty)
+                            liststa.Add(row.Cells[2].Value.ToString());
+                    }
                     foreach (string line in lines)
                     {
                         string[] values = line.ToString().Split(' ');
                         List<string> list2 = new List<string>();
                         int cp = 0;
                         for (int i = 0; i < values.Length; i++)
-                        {
+                        { 
                             if (values[i] != string.Empty)
                             {
                                 cp++;
@@ -66,17 +72,16 @@ namespace Sqrland_Calcul
 
                             }
                         }
-                       string station = list2[0];
+                        string station = list2[0];
                         if (!liststa.Contains(station) && station is string)
-                        {                            
-                            table.Rows.Add(new string[] { station, station, null, null, null, null });
+                        {
+                            table.Rows.Add(new string[] { station, null, null, null, null, null });
                             liststa.Add(station);
                         }
                         table.Rows.Add(list2.ToArray());
                     }
 
-                        
-                    mydb databaseObject = new mydb(table, int.Parse(id));
+                    mydb databaseObject = new mydb(table, int.Parse(id),filename);
                     FillDataGridView();
                     break;
             }
@@ -87,6 +92,7 @@ namespace Sqrland_Calcul
         {
             OpenFileDialog openfile = new OpenFileDialog();
             openfile.Filter = "Text Files(*.txt)|*.txt;";
+            
 
             if (openfile.ShowDialog() == DialogResult.OK)
             {
@@ -102,6 +108,7 @@ namespace Sqrland_Calcul
                 }
             }
             catch (Exception) { }
+            filename = openfile.SafeFileName;
         }
 
         private void btn_update(object sender, EventArgs e)
@@ -110,27 +117,34 @@ namespace Sqrland_Calcul
             {
                 SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
                 cn.Open();
-
-                string tsthp = row.Cells[7].Value.ToString();
-                string tsths = row.Cells[8].Value.ToString();
-                string tstZ = row.Cells[9].Value.ToString();
+                for(int i = 3; i < row.Cells.Count-2; i++)
+                {
+                    if(i != 5)
+                    {
+                        string value = row.Cells[i].Value.ToString();
+                        if (value == string.Empty && i>3)
+                        {
+                            value = "null";
+                        }
+                        string query="";
+                        switch (i)
+                        {
+                            case 3:query = "point_vise = '"+value+"'";break;
+                            case 4:query = "Ah1 = "+value;break;
+                            case 6:query = "Distance = "+value;break;
+                            case 7:query = "Av = "+value;break;
+                            case 8:query = "hp = "+value;break;
+                            case 9:query = "hs = "+value;break;
+                            case 10:query = "X = "+value;break;
+                            case 11:query = "Y = "+value;break;
+                            case 12:query = "Z = "+value;break;
+                        }
+                        SQLiteCommand cmd = new SQLiteCommand("update observation_row set " + query + " where id = " + row.Cells[0].Value, cn);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
                
 
-                if (tsthp != string.Empty)
-                {
-                    SQLiteCommand cmd = new SQLiteCommand("update observation_row set hp = " + tsthp + " where id = " + row.Cells[0].Value, cn);
-                    cmd.ExecuteNonQuery();
-                }
-                if (tsths != string.Empty)
-                {
-                    SQLiteCommand cmd = new SQLiteCommand("update observation_row set hs = " + tsths + " where id = " + row.Cells[0].Value, cn);
-                    cmd.ExecuteNonQuery();
-                }
-                if (tstZ != string.Empty)
-                {
-                    SQLiteCommand cmd = new SQLiteCommand("update observation_row set Z = " + tstZ + " where id = " + row.Cells[0].Value, cn);
-                    cmd.ExecuteNonQuery();
-                }
             }
             MessageBox.Show("update with success");
         }
@@ -143,7 +157,8 @@ namespace Sqrland_Calcul
 
         private void FillDataGridView()
         {
-            try { 
+            try
+            {
                 SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
                 cn.Open();
                 adpt = new SQLiteDataAdapter("select * from observation_row where id_observation = " + id + " order by Station, Ah2", cn);
@@ -151,7 +166,7 @@ namespace Sqrland_Calcul
                 adpt.Fill(dt);
 
                 dataGridView2.DataSource = dt;
-            
+
                 if (dataGridView2.Rows.Count > 0)
                 {
                     string removedup = dataGridView2.Rows[0].Cells[2].Value.ToString();
@@ -163,37 +178,46 @@ namespace Sqrland_Calcul
                         }
                         else
                         {
-                                removedup = dataGridView2.Rows[i].Cells[2].Value.ToString();
+                            removedup = dataGridView2.Rows[i].Cells[2].Value.ToString();
                         }
-                        
+
                     }
                 }
-                
 
                 dataGridView2.Columns[0].Visible = false;
                 dataGridView2.Columns[1].Width = 35;
                 dataGridView2.Columns[13].Visible = false;
+                dataGridView2.Columns[14].Visible = false;
             }
             catch (Exception) { }
         }
-
+        int index=-15;
         private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             for (int j = 0; j < dataGridView2.Rows.Count; j++)
             {
                 string duplicated = dataGridView2.Rows[j].Cells[2].Value.ToString();
+
                 for (int i = 0; i < dataGridView2.Rows.Count; i++)
                 {
-                    if (e.ColumnIndex == 3 && e.Value != null)
+                    if (e.ColumnIndex == 3 && e.Value.ToString() != string.Empty)
                     {
                         string val = Convert.ToString(e.Value);
-                        if (val == duplicated && val != null)
+                        if (val == duplicated)
                         {
                             e.CellStyle.ForeColor = Color.White;
                             e.CellStyle.BackColor = Color.FromArgb(27, 91, 104);
                         }
                     }
-
+                    if (e.ColumnIndex == 3 && e.Value.ToString() == string.Empty)
+                    {
+                        index = e.RowIndex;
+                    }
+                    if (index != -15 && e.RowIndex == index && e.ColumnIndex >2 && e.ColumnIndex<10)
+                    {
+                        e.CellStyle.BackColor = Color.FromArgb(228, 233, 224);
+                    }
+                    
                 }
             }
         }
@@ -219,24 +243,42 @@ namespace Sqrland_Calcul
                 SQLiteCommand cmd = new SQLiteCommand("update observation_row set fixe = 0 where id = " + dataGridView2.Rows[e.RowIndex].Cells[0].Value, cn);
                 cmd.ExecuteNonQuery();
             }
-            
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            FrmCheminement ch = new FrmCheminement(int.Parse(id));
+            this.Hide();
+            ch.ShowDialog();
+            this.Show();
+
+        }
+       
+        private void dataGridView2_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
             for (int i = 0; i < dataGridView2.Rows.Count; i++)
             {
-                if (!dataGridView2.Rows[i].Cells[2].Value.ToString().Equals(""))
+                if (e.ColumnIndex == 2)
                 {
-                    MessageBox.Show("dkhel");
-                    dataGridView2.Rows.Insert(i);
-                }
-                else
-                {
-                    MessageBox.Show("dkhel0");
-                }
+                    if (e.Value.ToString() == string.Empty)
+                    {
+                        e.AdvancedBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
+                        e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
+                    }
+                    else
+                    {
+                        e.AdvancedBorderStyle.All = DataGridViewAdvancedCellBorderStyle.Inset;
+                    }
+                   
 
+                }
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -29,11 +29,24 @@ namespace Sqrland_Calcul
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("INSERT INTO observation values (null,'"+ textName.Text+ "', '"+textDescreption.Text+"',Datetime())", connection);
-            cmd.ExecuteNonQuery();
-            connection.Close();
-            refresh();
+            if(textName.Text==string.Empty )
+            {
+                label3.Text = "Remplit le nom !!";
+                textName.Focus();
+            }
+            else if(textDescreption.Text == string.Empty)
+            {
+                label3.Text = "Remplit la description !!";
+                textDescreption.Focus();
+            }
+            else
+            {
+                connection.Open();
+                SQLiteCommand cmd = new SQLiteCommand("INSERT INTO observation values (null,'" + textName.Text + "', '" + textDescreption.Text + "',Datetime())", connection);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+                refresh();
+            }
         }
 
        private void refresh()
@@ -72,6 +85,11 @@ namespace Sqrland_Calcul
                 }
                
             }
+        }
+
+        private void textName_KeyUp(object sender, KeyEventArgs e)
+        {
+            label3.Text = "";
         }
     }
 }

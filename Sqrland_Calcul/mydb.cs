@@ -41,6 +41,7 @@ namespace Sqrland_Calcul
                         "\"X\" double," +
                         "\"Y\" double," +
                         "\"Z\" double," +
+                        "\"Ref\" text NOT NULL ," +
                         "\"id_observation\"    INTEGER NOT NULL," +
                         "PRIMARY KEY(\"id\" AUTOINCREMENT)," +
                         "FOREIGN KEY(\"id_observation\") REFERENCES \"Observation\"(\"id\")" +
@@ -51,13 +52,13 @@ namespace Sqrland_Calcul
             //}
             
         }
-        public mydb(DataTable dtIn, int idObs)
+        public mydb(DataTable dtIn, int idObs,string filename)
         {
             connection = new SQLiteConnection("Data Source= sqrLand.db");
-            Fill(dtIn, idObs);
+            Fill(dtIn, idObs,filename);
         }
 
-        private void Fill(DataTable dt, int id)
+        private void Fill(DataTable dt, int id,string filename)
         {
             connection.Open();
             
@@ -78,7 +79,7 @@ namespace Sqrland_Calcul
                         query += item[j] + ",";
                         
                 }
-                query += id+");";
+                query += "'"+filename+"',"+id+");";
                 SQLiteCommand com = new SQLiteCommand(query, connection);
                 com.ExecuteNonQuery();
             }
