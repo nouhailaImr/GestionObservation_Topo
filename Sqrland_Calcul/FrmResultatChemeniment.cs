@@ -1,16 +1,16 @@
-﻿using iTextSharp.text;
+﻿using DGVPrinterHelper;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+//using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace Sqrland_Calcul
 {
@@ -63,7 +63,8 @@ namespace Sqrland_Calcul
                             pTable.WidthPercentage = 100;
                             pTable.HorizontalAlignment = Element.ALIGN_LEFT;
 
-                            foreach(DataGridViewColumn col in dataGridView4.Columns)
+
+                            foreach (DataGridViewColumn col in dataGridView4.Columns)
                             {
                                 PdfPCell pcell = new PdfPCell(new Phrase(col.HeaderText));
                                 pTable.AddCell(pcell);
@@ -81,6 +82,27 @@ namespace Sqrland_Calcul
                                 Document document = new Document(PageSize.A4,8f,16f,16f,8f);
                                 PdfWriter.GetInstance(document, fileStream);
                                 document.Open();
+                                //title
+                                BaseFont bfn = BaseFont.CreateFont(BaseFont.TIMES_ROMAN,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
+                                Font fntHead = new Font(bfn, 16, 1, BaseColor.BLACK);
+                                Paragraph prg = new Paragraph();
+                                prg.Alignment = Element.ALIGN_CENTER;
+                                prg.Add(new Chunk("Resultat Cheminement", fntHead));
+                                document.Add(prg);
+                                //Author
+                                Paragraph prgAuthor = new Paragraph();
+                                BaseFont btnAuthor = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                                Font fntAuthor = new Font(btnAuthor, 8, 2, BaseColor.BLACK);
+                                prgAuthor.Alignment = Element.ALIGN_RIGHT;
+                                prgAuthor.Add(new Chunk("Author : GEOBAT Tetouan", fntAuthor));
+                                prgAuthor.Add(new Chunk("\n Date : " + DateTime.Now.ToShortDateString(), fntAuthor));
+                                document.Add(prgAuthor);
+
+                                // line seperation
+                                Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F,BaseColor.BLACK, Element.ALIGN_LEFT, 1)));
+                                document.Add(p);
+                                //line break
+                                document.Add(new Chunk("\n"));
                                 document.Add(pTable);
                                 document.Close();
                                 fileStream.Close();
@@ -100,6 +122,20 @@ namespace Sqrland_Calcul
                 MessageBox.Show("No record Found","Info");
 
             }
+        }
+        private void btn_print_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Resultat Cheminement";
+            printer.SubTitleFormatFlags = System.Drawing.StringFormatFlags.LineLimit | System.Drawing.StringFormatFlags.NoClip;
+            printer.PageNumbers = true;
+            printer.PageNumberInHeader = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = System.Drawing.StringAlignment.Near;
+            printer.Footer = "SQRLand";
+            printer.FooterSpacing = 15;
+            printer.PrintDataGridView(dataGridView4);
+
         }
     }
 }

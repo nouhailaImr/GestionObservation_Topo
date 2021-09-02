@@ -16,59 +16,55 @@ namespace Sqrland_Calcul
             double y2 = cheminements[1].X;
             double y1 = cheminements[0].X;
             int n = cheminements.Count;
-
-            //Gisement depart
-            double G1 = 0;
-            double di = 0;
+            double G1=0 ;
             double dx = x1 - x2;
             double dy = y1 - y2;
             if (dx > 0 && dy > 0)
-                G1 = Math.Atan2(dx,dy);
+                G1 += Math.Atan2(dx,dy);
             else if (dx > 0 && dy < 0 || dx < 0 && dy < 0)
-                G1 = Math.Atan2(dx, dy)+200;
+                G1 += Math.Atan2(dx, dy)+200;
             else if (dx < 0 && dy > 0)
-                G1 = Math.Atan2(dx, dy) + 400;
+                G1 += Math.Atan2(dx, dy) + 400;
+
+            MessageBox.Show(G1.ToString());
             //Somme angles et de n 
             double ang = 0;
-            foreach(Cheminement ch in cheminements)
+            double di = 0;
+            foreach (Cheminement ch in cheminements)
             {
                 ang += ch.Ah2;
                 di += ch.Distance;
             }
+
             //Gisement observé d’arrivée 
             double Gobs = 0;
             Gobs = G1 + ang + (n - 1) * 200;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (Gobs > 400)
+                    Gobs -=  400;
+                else if (Gobs<0)
+                    Gobs += 200;
+            }
             //fermeture angulaire
             double fa = 0;
             if (cheminements[0]!=cheminements[n-1]){
                 
                 fa = G1 - Gobs;
             }
-           else
-            {
-                double hg;
-                hg = (n - 2) * 200;
-                fa = ang - hg;
-            }
-            // Tolérance théorique
-            //double Ta= 0.0113;
-            /*if (cheminements[0] != cheminements[n - 1])
-            {
-                Ta = 2.7 * 0.2 * Math.Sqrt(n+1);
-            }
-            else
-            {
-                Ta = 2.7 * 0.2 * Math.Sqrt(n);
-            }*/
 
-            /*if (fa > Ta)
+             //Tolérance théorique
+            double Ta= 0.0113;
+
+            if (fa > Ta)
             {
-                MessageBox.Show("Erreur de calcul");
+                MessageBox.Show("Erreur de calcul (Tolérance théorique) ");
                 return null;
-            }*/
+            }
 
-            //{
-                double da;
+            else{
+            double da;
                 da = fa / n;
                 double x = cheminements[0].X;
                 double y = cheminements[0].Y;
@@ -84,7 +80,9 @@ namespace Sqrland_Calcul
                         cheminements[i].Gisement = cheminements[i - 1].Gisement + cheminements[i].Ah2 + 200;
                     }
                 if (cheminements[i].Gisement > 400)
-                    cheminements[i].Gisement -= 200;
+                    cheminements[i].Gisement -= 400;
+                else if (cheminements[i].Gisement < 0)
+                        cheminements[i].Gisement += 200;
 
                     //coord compense
                     if (i == 0)
@@ -125,13 +123,17 @@ namespace Sqrland_Calcul
                     //}
                 }
 
-            //}
+            }
             foreach(Cheminement ch in cheminements)
             {
+
+                ch.Ah2 = double.Parse(ch.Ah2.ToString("0.00"));
                 ch.Gisement =   double.Parse(ch.Gisement.ToString("0.00"));
                 ch.X =   double.Parse(ch.X.ToString("0.00"));
                 ch.Y =   double.Parse(ch.Y.ToString("0.00"));
+
             }
+
             return cheminements;
         }
 
