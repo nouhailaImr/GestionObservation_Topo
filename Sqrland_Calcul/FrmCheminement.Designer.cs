@@ -136,7 +136,6 @@ namespace Sqrland_Calcul
             this.dgCheminement.RowTemplate.Height = 24;
             this.dgCheminement.Size = new System.Drawing.Size(430, 234);
             this.dgCheminement.TabIndex = 19;
-            this.dgCheminement.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgCheminement_CellContentClick);
             // 
             // FrmCheminement
             // 

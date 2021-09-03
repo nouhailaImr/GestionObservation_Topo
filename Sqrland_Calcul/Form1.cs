@@ -280,6 +280,14 @@ namespace Sqrland_Calcul
         {
 
         }
+
+        private void btn_raynmt_Click(object sender, EventArgs e)
+        {
+            FrmRayonmt ch = new FrmRayonmt(int.Parse(id));
+            this.Hide();
+            ch.ShowDialog();
+            this.Show();
+        }
     }
 }
 

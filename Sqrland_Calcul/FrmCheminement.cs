@@ -128,14 +128,7 @@ namespace Sqrland_Calcul
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgCheminement_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+       
+        
     }
 }

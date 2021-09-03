@@ -57,13 +57,13 @@ namespace Sqrland_Calcul
              //Tolérance théorique
             double Ta= 0.0113;
 
-            if (fa > Ta)
+            /*if (fa > Ta)
             {
                 MessageBox.Show("Erreur de calcul (Tolérance théorique) ");
                 return null;
-            }
+            }*/
 
-            else{
+            //else{
             double da;
                 da = fa / n;
                 double x = cheminements[0].X;
@@ -72,6 +72,10 @@ namespace Sqrland_Calcul
                 {
                     
                     cheminements[i].Ah2 = cheminements[i].Ah2 + da;
+                    if (cheminements[i].Ah2 > 400)
+                        cheminements[i].Ah2 -= 400;
+                    else if (cheminements[i].Ah2 < 0)
+                        cheminements[i].Ah2 += 200;
                     //gisement compense
                     if (i == 0)
                         cheminements[i].Gisement = G1;
@@ -121,7 +125,7 @@ namespace Sqrland_Calcul
                         cheminements[i].X += dx1;
                         cheminements[i].Y += dy1;
                     //}
-                }
+               // }
 
             }
             foreach(Cheminement ch in cheminements)

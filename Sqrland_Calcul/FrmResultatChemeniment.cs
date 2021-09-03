@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-//using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -58,7 +57,7 @@ namespace Sqrland_Calcul
                     {
                         try
                         {
-                            PdfPTable pTable = new PdfPTable(dataGridView4.Columns.Count);
+                            PdfPTable pTable = new PdfPTable(dataGridView4.Columns.Count-1);
                             pTable.DefaultCell.Padding = 2;
                             pTable.WidthPercentage = 100;
                             pTable.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -66,14 +65,20 @@ namespace Sqrland_Calcul
 
                             foreach (DataGridViewColumn col in dataGridView4.Columns)
                             {
-                                PdfPCell pcell = new PdfPCell(new Phrase(col.HeaderText));
-                                pTable.AddCell(pcell);
+                                if (col.Index != 1)
+                                {
+                                    PdfPCell pcell = new PdfPCell(new Phrase(col.HeaderText));
+                                    pTable.AddCell(pcell);
+                                }
                             }
                             foreach (DataGridViewRow Row in dataGridView4.Rows)
                             {
                                 foreach (DataGridViewCell cell in Row.Cells)
                                 {
-                                    pTable.AddCell(cell.Value.ToString());
+                                    if (cell.ColumnIndex != 1)
+                                    {
+                                        pTable.AddCell(cell.Value.ToString());
+                                    }
                                 }
                             }
 
@@ -84,17 +89,17 @@ namespace Sqrland_Calcul
                                 document.Open();
                                 //title
                                 BaseFont bfn = BaseFont.CreateFont(BaseFont.TIMES_ROMAN,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
-                                Font fntHead = new Font(bfn, 16, 1, BaseColor.BLACK);
+                                Font fntHead = new Font(bfn, 20, 1, BaseColor.BLACK);
                                 Paragraph prg = new Paragraph();
                                 prg.Alignment = Element.ALIGN_CENTER;
-                                prg.Add(new Chunk("Resultat Cheminement", fntHead));
+                                prg.Add(new Chunk("Résultat Cheminement", fntHead));
                                 document.Add(prg);
                                 //Author
                                 Paragraph prgAuthor = new Paragraph();
                                 BaseFont btnAuthor = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                                 Font fntAuthor = new Font(btnAuthor, 8, 2, BaseColor.BLACK);
                                 prgAuthor.Alignment = Element.ALIGN_RIGHT;
-                                prgAuthor.Add(new Chunk("Author : GEOBAT Tetouan", fntAuthor));
+                                prgAuthor.Add(new Chunk("Produit : GEOBAT Tétouan", fntAuthor));
                                 prgAuthor.Add(new Chunk("\n Date : " + DateTime.Now.ToShortDateString(), fntAuthor));
                                 document.Add(prgAuthor);
 
@@ -127,6 +132,7 @@ namespace Sqrland_Calcul
         {
             DGVPrinter printer = new DGVPrinter();
             printer.Title = "Resultat Cheminement";
+            printer.SubTitle = string.Format("Date: {0}", DateTime.Now.Date);
             printer.SubTitleFormatFlags = System.Drawing.StringFormatFlags.LineLimit | System.Drawing.StringFormatFlags.NoClip;
             printer.PageNumbers = true;
             printer.PageNumberInHeader = false;
