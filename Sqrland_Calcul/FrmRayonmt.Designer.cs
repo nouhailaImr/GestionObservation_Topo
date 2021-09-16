@@ -37,6 +37,7 @@ namespace Sqrland_Calcul
             this.button1 = new System.Windows.Forms.Button();
             this.btn_ajouter = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgRayonmt)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,7 +45,7 @@ namespace Sqrland_Calcul
             // 
             this.dgRayonmt.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgRayonmt.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgRayonmt.Location = new System.Drawing.Point(18, 207);
+            this.dgRayonmt.Location = new System.Drawing.Point(19, 168);
             this.dgRayonmt.Name = "dgRayonmt";
             this.dgRayonmt.RowHeadersVisible = false;
             this.dgRayonmt.RowHeadersWidth = 51;
@@ -77,19 +78,19 @@ namespace Sqrland_Calcul
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(456, 253);
+            this.button2.Location = new System.Drawing.Point(456, 214);
             this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(114, 36);
             this.button2.TabIndex = 24;
-            this.button2.Text = "supprimer";
+            this.button2.Text = "Supprimer";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(456, 207);
+            this.button1.Location = new System.Drawing.Point(456, 168);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(114, 36);
@@ -101,7 +102,7 @@ namespace Sqrland_Calcul
             // btn_ajouter
             // 
             this.btn_ajouter.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ajouter.Location = new System.Drawing.Point(471, 100);
+            this.btn_ajouter.Location = new System.Drawing.Point(456, 100);
             this.btn_ajouter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_ajouter.Name = "btn_ajouter";
             this.btn_ajouter.Size = new System.Drawing.Size(114, 36);
@@ -120,11 +121,24 @@ namespace Sqrland_Calcul
             this.label3.TabIndex = 29;
             this.label3.Text = "Calcul Rayonnement";
             // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(456, 260);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(114, 36);
+            this.button3.TabIndex = 30;
+            this.button3.Text = "Quitter";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // FrmRayonmt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 462);
+            this.ClientSize = new System.Drawing.Size(588, 430);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dgRayonmt);
             this.Controls.Add(this.label2);
@@ -151,5 +165,6 @@ namespace Sqrland_Calcul
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_ajouter;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button3;
     }
 }

@@ -81,13 +81,13 @@ namespace Sqrland_Calcul
 
             dgRayonmt.DataSource = null;
             dgRayonmt.DataSource = rayonnement;
-            dgRayonmt.Columns[0].Visible = false;
+            /*dgRayonmt.Columns[0].Visible = false;
             dgRayonmt.Columns[2].Visible = false;
             dgRayonmt.Columns[3].Visible = false;
             dgRayonmt.Columns[4].Visible = false;
             dgRayonmt.Columns[5].Visible = false;
             dgRayonmt.Columns[6].Visible = false;
-            dgRayonmt.Columns[7].Visible = false;
+            dgRayonmt.Columns[7].Visible = false;*/
         }
     
 
@@ -114,5 +114,10 @@ namespace Sqrland_Calcul
             this.Show();
         }
     }
-}
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
 }

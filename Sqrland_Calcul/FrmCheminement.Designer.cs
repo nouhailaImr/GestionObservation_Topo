@@ -39,6 +39,7 @@ namespace Sqrland_Calcul
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.dgCheminement = new System.Windows.Forms.DataGridView();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgCheminement)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,12 +86,12 @@ namespace Sqrland_Calcul
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(458, 255);
+            this.button2.Location = new System.Drawing.Point(458, 243);
             this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(114, 36);
             this.button2.TabIndex = 8;
-            this.button2.Text = "supprimer";
+            this.button2.Text = "Supprimer";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -120,7 +121,7 @@ namespace Sqrland_Calcul
             this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(585, 88);
+            this.label6.Size = new System.Drawing.Size(592, 88);
             this.label6.TabIndex = 18;
             this.label6.Text = "Calcul cheminement";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -134,14 +135,26 @@ namespace Sqrland_Calcul
             this.dgCheminement.RowHeadersVisible = false;
             this.dgCheminement.RowHeadersWidth = 51;
             this.dgCheminement.RowTemplate.Height = 24;
-            this.dgCheminement.Size = new System.Drawing.Size(430, 234);
+            this.dgCheminement.Size = new System.Drawing.Size(433, 190);
             this.dgCheminement.TabIndex = 19;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(458, 289);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(114, 36);
+            this.button3.TabIndex = 20;
+            this.button3.Text = "Quitter";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // FrmCheminement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(585, 459);
+            this.ClientSize = new System.Drawing.Size(592, 417);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.dgCheminement);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
@@ -175,5 +188,6 @@ namespace Sqrland_Calcul
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView dgCheminement;
+        private System.Windows.Forms.Button button3;
     }
 }
