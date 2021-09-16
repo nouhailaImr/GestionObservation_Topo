@@ -95,6 +95,7 @@ namespace Sqrland_Calcul
                 dgCheminement.Columns[4].Visible = false;
                 dgCheminement.Columns[5].Visible = false;
                 dgCheminement.Columns[6].Visible = false;
+                dgCheminement.Columns[7].Visible = false;
             }
         }
 
@@ -109,11 +110,11 @@ namespace Sqrland_Calcul
             dgCheminement.Columns[5].Visible = false;
             dgCheminement.Columns[6].Visible = false;
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             if (cheminements.Count < 4)
-                MessageBox.Show("fegfregegeg");
+                MessageBox.Show("Entrer un point");
             else
             {
                 Calc_Angle.cheminements = Calc_Cheminement.Main(cheminements);
@@ -129,6 +130,5 @@ namespace Sqrland_Calcul
         }
 
        
-        
     }
 }

@@ -13,6 +13,7 @@ namespace Sqrland_Calcul
     {
 
         public static List<Cheminement> cheminements ;
+        public static List<Rayonnement> rayonnements;
         public static void calc_angle(DataGridView dataGridView2)
         {
             List<int> lista_doublant = new List<int>();

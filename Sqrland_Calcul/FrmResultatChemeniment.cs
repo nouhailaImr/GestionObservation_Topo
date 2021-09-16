@@ -71,6 +71,7 @@ namespace Sqrland_Calcul
                                     pTable.AddCell(pcell);
                                 }
                             }
+                            
                             foreach (DataGridViewRow Row in dataGridView4.Rows)
                             {
                                 foreach (DataGridViewCell cell in Row.Cells)
@@ -142,6 +143,11 @@ namespace Sqrland_Calcul
             printer.FooterSpacing = 15;
             printer.PrintDataGridView(dataGridView4);
 
+        }
+
+        private void btn_quit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

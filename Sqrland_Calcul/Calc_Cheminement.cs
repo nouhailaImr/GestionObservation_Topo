@@ -26,7 +26,6 @@ namespace Sqrland_Calcul
             else if (dx < 0 && dy > 0)
                 G1 += Math.Atan2(dx, dy) + 400;
 
-            MessageBox.Show(G1.ToString());
             //Somme angles et de n 
             double ang = 0;
             double di = 0;
