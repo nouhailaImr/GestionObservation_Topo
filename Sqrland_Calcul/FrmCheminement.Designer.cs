@@ -129,6 +129,7 @@ namespace Sqrland_Calcul
             // dgCheminement
             // 
             this.dgCheminement.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgCheminement.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgCheminement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgCheminement.Location = new System.Drawing.Point(18, 197);
             this.dgCheminement.Name = "dgCheminement";

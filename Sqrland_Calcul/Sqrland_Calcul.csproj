@@ -144,6 +144,9 @@
     <EmbeddedResource Include="FrmResultatChemeniment.resx">
       <DependentUpon>FrmResultatChemeniment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmResultatRayonmt.resx">
+      <DependentUpon>FrmResultatRayonmt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
