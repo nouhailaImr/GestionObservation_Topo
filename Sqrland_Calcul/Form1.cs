@@ -146,7 +146,7 @@ namespace Sqrland_Calcul
                
 
             }
-            MessageBox.Show("update with success");
+            MessageBox.Show("Modifié avec succès");
         }
 
 

@@ -23,6 +23,9 @@ namespace Sqrland_Calcul
         private void FrmResultatRayonmt_Load(object sender, EventArgs e)
         {
             dgr.DataSource = Calc_Angle.rayonnements;
+
+            dgr.Columns[0].Visible = false;
+            dgr.Columns[2].HeaderText = "Angle";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -87,7 +90,7 @@ namespace Sqrland_Calcul
                                 Font fntHead = new Font(bfn, 20, 1, BaseColor.BLACK);
                                 Paragraph prg = new Paragraph();
                                 prg.Alignment = Element.ALIGN_CENTER;
-                                prg.Add(new Chunk("Résultat Cheminement", fntHead));
+                                prg.Add(new Chunk("Résultat Rayonnement", fntHead));
                                 document.Add(prg);
                                 //Author
                                 Paragraph prgAuthor = new Paragraph();
@@ -111,7 +114,7 @@ namespace Sqrland_Calcul
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error exporting" + ex.Message);
+                            MessageBox.Show("Erreur d'exortation " + ex.Message);
                         }
 
                     }

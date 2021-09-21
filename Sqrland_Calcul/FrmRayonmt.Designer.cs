@@ -46,12 +46,13 @@ namespace Sqrland_Calcul
             this.dgRayonmt.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgRayonmt.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgRayonmt.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgRayonmt.Location = new System.Drawing.Point(18, 153);
+            this.dgRayonmt.Location = new System.Drawing.Point(40, 174);
+            this.dgRayonmt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgRayonmt.Name = "dgRayonmt";
             this.dgRayonmt.RowHeadersVisible = false;
             this.dgRayonmt.RowHeadersWidth = 51;
             this.dgRayonmt.RowTemplate.Height = 24;
-            this.dgRayonmt.Size = new System.Drawing.Size(321, 214);
+            this.dgRayonmt.Size = new System.Drawing.Size(491, 272);
             this.dgRayonmt.TabIndex = 28;
             this.dgRayonmt.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgRayonmt_CellContentClick);
             // 
@@ -59,8 +60,8 @@ namespace Sqrland_Calcul
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 111);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(35, 131);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 25);
             this.label2.TabIndex = 10;
@@ -71,20 +72,20 @@ namespace Sqrland_Calcul
             this.comboBox3.DropDownWidth = 336;
             this.comboBox3.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(112, 103);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboBox3.Location = new System.Drawing.Point(136, 128);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(227, 33);
+            this.comboBox3.Size = new System.Drawing.Size(389, 33);
             this.comboBox3.TabIndex = 25;
             this.comboBox3.SelectedValueChanged += new System.EventHandler(this.comboBox3_SelectedValueChanged);
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(361, 214);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button2.Location = new System.Drawing.Point(556, 223);
+            this.button2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(114, 36);
+            this.button2.Size = new System.Drawing.Size(118, 39);
             this.button2.TabIndex = 24;
             this.button2.Text = "Supprimer";
             this.button2.UseVisualStyleBackColor = true;
@@ -93,10 +94,10 @@ namespace Sqrland_Calcul
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(361, 168);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Location = new System.Drawing.Point(556, 174);
+            this.button1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 36);
+            this.button1.Size = new System.Drawing.Size(118, 44);
             this.button1.TabIndex = 23;
             this.button1.Text = "Calculer";
             this.button1.UseVisualStyleBackColor = true;
@@ -105,10 +106,10 @@ namespace Sqrland_Calcul
             // btn_ajouter
             // 
             this.btn_ajouter.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ajouter.Location = new System.Drawing.Point(361, 100);
-            this.btn_ajouter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btn_ajouter.Location = new System.Drawing.Point(556, 128);
+            this.btn_ajouter.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btn_ajouter.Name = "btn_ajouter";
-            this.btn_ajouter.Size = new System.Drawing.Size(114, 36);
+            this.btn_ajouter.Size = new System.Drawing.Size(118, 33);
             this.btn_ajouter.TabIndex = 22;
             this.btn_ajouter.Text = "Ajouter";
             this.btn_ajouter.UseVisualStyleBackColor = true;
@@ -120,19 +121,21 @@ namespace Sqrland_Calcul
             this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(521, 83);
+            this.label3.Size = new System.Drawing.Size(688, 120);
             this.label3.TabIndex = 18;
             this.label3.Text = "Calcul Rayonnement";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(361, 260);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button3.Location = new System.Drawing.Point(556, 278);
+            this.button3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 36);
+            this.button3.Size = new System.Drawing.Size(118, 36);
             this.button3.TabIndex = 30;
             this.button3.Text = "Quitter";
             this.button3.UseVisualStyleBackColor = true;
@@ -140,9 +143,9 @@ namespace Sqrland_Calcul
             // 
             // FrmRayonmt
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 393);
+            this.ClientSize = new System.Drawing.Size(688, 483);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dgRayonmt);
@@ -151,7 +154,9 @@ namespace Sqrland_Calcul
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_ajouter);
+            this.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmRayonmt";
             this.Text = "FrmRayonmt";
             this.Load += new System.EventHandler(this.FrmRayonmt_Load);

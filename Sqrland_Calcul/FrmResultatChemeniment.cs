@@ -147,7 +147,7 @@ namespace Sqrland_Calcul
 
         private void btn_quit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
     }
 }

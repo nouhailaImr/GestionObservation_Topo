@@ -56,7 +56,7 @@ namespace Sqrland_Calcul
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowHeadersWidth = 51;
             this.dataGridView4.RowTemplate.Height = 24;
-            this.dataGridView4.Size = new System.Drawing.Size(906, 448);
+            this.dataGridView4.Size = new System.Drawing.Size(909, 429);
             this.dataGridView4.TabIndex = 0;
             // 
             // panel1
@@ -66,7 +66,7 @@ namespace Sqrland_Calcul
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(962, 73);
+            this.panel1.Size = new System.Drawing.Size(965, 73);
             this.panel1.TabIndex = 1;
             // 
             // label1
@@ -76,7 +76,7 @@ namespace Sqrland_Calcul
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(962, 73);
+            this.label1.Size = new System.Drawing.Size(965, 73);
             this.label1.TabIndex = 0;
             this.label1.Text = "RESULTAT CHEMINEMENT";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -84,7 +84,7 @@ namespace Sqrland_Calcul
             // 
             // btn_print
             // 
-            this.btn_print.Location = new System.Drawing.Point(568, 13);
+            this.btn_print.Location = new System.Drawing.Point(599, 13);
             this.btn_print.Name = "btn_print";
             this.btn_print.Size = new System.Drawing.Size(98, 46);
             this.btn_print.TabIndex = 2;
@@ -94,7 +94,7 @@ namespace Sqrland_Calcul
             // 
             // btn_export
             // 
-            this.btn_export.Location = new System.Drawing.Point(685, 13);
+            this.btn_export.Location = new System.Drawing.Point(703, 13);
             this.btn_export.Name = "btn_export";
             this.btn_export.Size = new System.Drawing.Size(100, 46);
             this.btn_export.TabIndex = 1;
@@ -111,7 +111,7 @@ namespace Sqrland_Calcul
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(28, 31, 28, 31);
-            this.panel2.Size = new System.Drawing.Size(962, 510);
+            this.panel2.Size = new System.Drawing.Size(965, 491);
             this.panel2.TabIndex = 2;
             // 
             // panel4
@@ -120,14 +120,14 @@ namespace Sqrland_Calcul
             this.panel4.Controls.Add(this.btn_print);
             this.panel4.Controls.Add(this.btn_export);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(28, 420);
+            this.panel4.Location = new System.Drawing.Point(28, 401);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(906, 59);
+            this.panel4.Size = new System.Drawing.Size(909, 59);
             this.panel4.TabIndex = 4;
             // 
             // btn_quit
             // 
-            this.btn_quit.Location = new System.Drawing.Point(806, 13);
+            this.btn_quit.Location = new System.Drawing.Point(809, 13);
             this.btn_quit.Name = "btn_quit";
             this.btn_quit.Size = new System.Drawing.Size(100, 46);
             this.btn_quit.TabIndex = 3;
@@ -139,7 +139,7 @@ namespace Sqrland_Calcul
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 583);
+            this.ClientSize = new System.Drawing.Size(965, 564);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

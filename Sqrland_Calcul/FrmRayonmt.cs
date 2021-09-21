@@ -57,7 +57,7 @@ namespace Sqrland_Calcul
         {
             SQLiteConnection cn = new SQLiteConnection("Data Source= sqrLand.db");
             cn.Open();
-            SQLiteCommand com = new SQLiteCommand("select * from observation_row where station  like '" + comboBox3.SelectedValue + "' and id_observation = " + id, cn);
+            SQLiteCommand com = new SQLiteCommand("select * from observation_row where point_vise != '' and  station  like '" + comboBox3.SelectedValue + "' and id_observation = " + id, cn);
             SQLiteDataReader dr = com.ExecuteReader();
             while (dr.Read())
             {
@@ -90,7 +90,7 @@ namespace Sqrland_Calcul
             dgRayonmt.Columns[4].Visible = false;
             dgRayonmt.Columns[5].Visible = false;
             dgRayonmt.Columns[6].Visible = false;
-            dgRayonmt.Columns[7].Visible = false;
+            //dgRayonmt.Columns[7].Visible = false;
         }
 
 
